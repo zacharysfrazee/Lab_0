@@ -7,12 +7,31 @@ import java.util.*; // for Stack class
 
 class huffmanTree{
 	//Instance Variables
+	String input, inputUppercase;
+	int maxSize = 28;
+	int freqTable[maxSize];
+	priorityQ queue; 
+	Tree huffTree;
+	String encode, decode;
+	String codeTable[maxSize];
+
 	
 	//Constructor
-	public huffmanTree(){
+	public huffmanTree(String input){
+		self.input = input;
+
+		//initialize the frequency table
+		for(int i = 0; i < maxSize; i++){
+			freqTable[i] = 0;
+		}
+
+		makeFreqTable();
+		queueTree();
+		makeHuffmanTree();
+
 		
 	}
 	
-	//Methods
+	//Methods8
 }
 	
