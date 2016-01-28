@@ -6,17 +6,17 @@ class PriorityQ
 {
 	// array in sorted order, from max at 0 to min at size-1
 	private int maxSize;
-	private long[] queArray;
+	private Tree[] queArray;
 	private int nItems;
 	//-------------------------------------------------------------
 	public PriorityQ(int s) // constructor
 	{
 		maxSize = s;
-		queArray = new long[maxSize];
+		queArray = new Tree[maxSize];
 		nItems = 0;
 	}
 	//-------------------------------------------------------------
-	public void insert(long item) // insert item
+	public void insert(Tree item) // insert item
 	{
 		int j;
 		if(nItems==0) // if no items,
@@ -25,7 +25,7 @@ class PriorityQ
 		{
 			for(j=nItems-1; j>=0; j--) // start at end,
 			{
-				if( item > queArray[j] ) // if new item larger,
+				if( item.getFrequency() > queArray[j].getFrequency() ) // if new item larger,
 					queArray[j+1] = queArray[j]; // shift upward
 				else // if smaller,
 					break; // done shifting
