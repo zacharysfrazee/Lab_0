@@ -16,6 +16,8 @@ class huffmanTree{
 	String codeTable[maxSize];
 
 	
+	
+	
 	//Constructor
 	public huffmanTree(String input){
 		self.input = input;
@@ -32,6 +34,17 @@ class huffmanTree{
 		
 	}
 	
-	//Methods8
+	//Methods
+
+	//Public Variables
+	public void makeCodeTable(){}
+	public void code(){}
+	public void decode(){}
+	
+	//Private Methods
+	private void makeFreqTable(){}
+	private void queueTree(){}
+	private void makeHuffmanTree(){}
+	
 }
 	
