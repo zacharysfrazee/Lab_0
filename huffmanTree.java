@@ -63,6 +63,19 @@ class huffmanTree{
 	}
 
 	private void queueTree(){}
+	private void makeFreqTable(){}
+	
+	private void queueTree(){
+		for(int i = 0; i < 28; i++){
+			if(freqTable[i] != 0){
+					Tree character = new Tree();
+					character.insert(freqTable[i], i);
+				
+					queue.insert(character);
+			}
+		}
+	}
+	
 	private void makeHuffmanTree(){}
 	
 }
