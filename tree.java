@@ -42,7 +42,7 @@ class Tree
 		return current; // found it
 	} // end find()
 	// -------------------------------------------------------------
-	public void insert(int id, double dd)
+	public void insert(int id, char dd)
 	{
 		Node newNode = new Node(); // make new node
 		newNode.data_freq = id; // insert data
