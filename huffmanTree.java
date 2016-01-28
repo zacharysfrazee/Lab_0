@@ -8,11 +8,22 @@ import java.util.*; // for Stack class
 class huffmanTree{
 	//Instance Variables
 	
+	
+	
 	//Constructor
 	public huffmanTree(){
 		
 	}
 	
-	//Methods
+	//Public Variables
+	public void makeCodeTable(){}
+	public void code(){}
+	public void decode(){}
+	
+	//Private Methods
+	private void makeFreqTable(){}
+	private void queueTree(){}
+	private void makeHuffmanTree(){}
+	
 }
 	
