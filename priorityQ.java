@@ -35,15 +35,18 @@ class PriorityQ
 		} // end else (nItems > 0)
 	} // end insert()
 	//-------------------------------------------------------------
-	public long remove() // remove minimum item
+	public Tree remove() // remove minimum item
 	{ return queArray[--nItems]; }
 	//-------------------------------------------------------------
-	public long peekMin() // peek at minimum item
+	public Tree peekMin() // peek at minimum item
 	{ return queArray[nItems-1]; }
 	//-------------------------------------------------------------
 	public boolean isEmpty() // true if queue is empty
 	{ return (nItems==0); }
 	//-------------------------------------------------------------
+	public int get_nItems(){
+	   return nItems; 
+	}
 	public boolean isFull() // true if queue is full
 	{ return (nItems == maxSize); }
 	//-------------------------------------------------------------
