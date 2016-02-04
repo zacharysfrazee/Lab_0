@@ -36,8 +36,29 @@ class huffmanTree{
 	
 	//Methods
 
-	//Public Variables
-	public void makeCodeTable(){}
+	//Public Methods
+
+
+	Private String makeCodeTable(Node n, String code){
+		if (n.ch == '+'){
+			makeCodeTable(n.leftChild, code+"0");
+			makeCodeTable(n.rightChild, code+"1");
+		}
+		else{ // hit a leaf node
+			if(n.data_char == ' '){ //char is space
+				codeTable[(int)n.data_char - 6] = code;
+			}
+			else if(n.data_char == '\n'){ //char is linefeed
+				codeTable[(int)n.data_char + 17] = code;
+			}
+			else{ //char is a normal letter
+				codeTable[(int)n.data_char - 65] = code;		
+			}
+			
+		} 
+	}
+
+
 	public void code(){}
 	public void decode(){}
 	
@@ -46,7 +67,7 @@ class huffmanTree{
 		char currentChar;
 		int index; 
 		for(int i = 0; i < input.length(); i++){
-			currentChar = input.charAt(i);
+			currentChar = input.charAt(i);d
 			if(currentChar.equals(' ')){
 				index = (int)currentChar - 6; //subtract 6 to get space (32) to an index of 26
 			}
@@ -57,13 +78,11 @@ class huffmanTree{
 
 			index = (int)currentChar - 65; //ascii valuve for A is 65. convert char to ascii then 
 										   //subtract the value of A to get an index for the frequency table
-			freqTable[index]++;
+			freqTable[index]++; //increase the frequency count of the current character
 			}
 		}
 	}
 
-	private void queueTree(){}
-	private void makeFreqTable(){}
 	
 	private void queueTree(){
 		for(int i = 0; i < 28; i++){
