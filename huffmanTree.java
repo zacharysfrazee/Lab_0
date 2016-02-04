@@ -46,9 +46,24 @@ class huffmanTree{
 	}
 	
 	public void decode(){
+		//reset encode for saftey
+		encode = null;
 		
+		for(int i = 0; i < decode.length - 1; i++){
+			
+			Node currentNode = huffTree.getRoot();
+			
+			while(currentNode.data_char != "+"){
+				if (decode.substring(i,i+1) == "1"{
+					currentNode = currentNode.rightChild;
+				} else {
+					currentNode = currentNode.leftChild;
+				}
+			}
+			
+			decode += currentNode.data_char;
+		}
 	}
-	
 	//Private Methods
 	private void makeFreqTable(){
 		char currentChar;
