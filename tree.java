@@ -10,6 +10,7 @@ class Node
 	public char data_char; //character 
 	public Node leftChild; // this node's left child
 	public Node rightChild; // this node's right child
+	
 	public void displayNode() // display ourself
 	{
 		System.out.print('{');
@@ -42,6 +43,10 @@ class Tree
 		return current; // found it
 	} // end find()
 	// -------------------------------------------------------------
+	public Node getRoot(){
+		return root;
+	}
+	
 	public void insert(int id, char dd)
 	{
 		Node newNode = new Node(); // make new node

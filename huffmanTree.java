@@ -37,9 +37,17 @@ class huffmanTree{
 	//Methods
 
 	//Public Variables
-	public void makeCodeTable(){}
-	public void code(){}
-	public void decode(){}
+	public void makeCodeTable(){
+		
+	}
+	
+	public void code(){
+		
+	}
+	
+	public void decode(){
+		
+	}
 	
 	//Private Methods
 	private void makeFreqTable(){
@@ -61,22 +69,30 @@ class huffmanTree{
 			}
 		}
 	}
-
-	private void queueTree(){}
-	private void makeFreqTable(){}
 	
 	private void queueTree(){
 		for(int i = 0; i < 28; i++){
 			if(freqTable[i] != 0){
 					Tree character = new Tree();
 					character.insert(freqTable[i], i);
-				
 					queue.insert(character);
 			}
 		}
 	}
 	
-	private void makeHuffmanTree(){}
+	private void makeHuffmanTree(){
+		while(queue.get_nItems() > 1){
+			Tree firstItem = queue.remove();
+			Tree secondItem = queue.remove();
+			
+			Tree newTree = new Tree();
+			newTree.insert(firstItem.getRoot().data_freq + secondItem.getRoot().data_freq, "+");
+			newTree.getRoot().leftChild = firstItem;
+			newTree.getRoot().rightChild = secondItem;
+			
+			queue.insert(newTree);
+		}
+	}
 	
 }
 	
