@@ -12,7 +12,8 @@ class huffmanTree{
 	int freqTable[maxSize];
 	priorityQ queue; 
 	Tree huffTree;
-	String encode, decode;
+	String encode = "";
+	String decode = "";
 	String codeTable[maxSize];
 
 	
@@ -30,6 +31,8 @@ class huffmanTree{
 		makeFreqTable();
 		queueTree();
 		makeHuffmanTree();
+		makeCodeTable(huffTree.getRoot());
+
 
 		
 	}
@@ -61,8 +64,24 @@ class huffmanTree{
 
 
 
-	
+	//code goes through the input string character by character,
+	//then finds the code in the code table corresponding to the
+	//current character and adds the code to encode string
 	public void code(){
+		char currentChar;
+		for (int i = 0; i < input.length(); i++){
+			currentChar = input.charAt();
+
+			if (currentChar == ' '){
+				encode += codeTable[(int)currentChar - 6];
+			} 
+			else if (currentChar == '\n'){
+				encode += codeTable[(int)currentChar + 17];
+			}
+			else{
+				encode += codeTable[(int)currentChar - 65];
+			}
+		}
 		
 	}
 	
@@ -114,6 +133,9 @@ class huffmanTree{
 			
 			queue.insert(newTree);
 		}
+
+		huffTree = queue.remove();  //now that there is only one tree left in the queue,
+								 	//we know that the tree must be the huffman tree
 	}
 	
 }
