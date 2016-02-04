@@ -9,19 +9,23 @@ class huffmanTree{
 	//Instance Variables
 	String input, inputUppercase;
 	int maxSize = 28;
-	int freqTable[maxSize];
-	priorityQ queue; 
+	int[] freqTable;
+	PriorityQ queue; 
 	Tree huffTree;
 	String encode = "";
 	String decode = "";
-	String codeTable[maxSize];
+	String[] codeTable;
+
+
 
 	
 	
 	
 	//Constructor
 	public huffmanTree(String input){
-		self.input = input.toUppercase();
+		freqTable = new int[maxSize];
+		codeTable = new String[maxSize];
+		this.input = input.toUpperCase();
 
 		//initialize the frequency table
 		for(int i = 0; i < maxSize; i++){
@@ -31,7 +35,7 @@ class huffmanTree{
 		makeFreqTable();
 		queueTree();
 		makeHuffmanTree();
-		makeCodeTable(huffTree.getRoot());
+		makeCodeTable(huffTree.getRoot(), "");
 
 
 		
@@ -42,8 +46,8 @@ class huffmanTree{
 
 	//Public Method
 
-	Private String makeCodeTable(Node n, String code){
-		if (n.ch == '+'){
+	private void makeCodeTable(Node n, String code){
+		if (n.data_char == '+'){
 			makeCodeTable(n.leftChild, code+"0");
 			makeCodeTable(n.rightChild, code+"1");
 		}
@@ -69,7 +73,7 @@ class huffmanTree{
 	public void code(){
 		char currentChar;
 		for (int i = 0; i < input.length(); i++){
-			currentChar = input.charAt();
+			currentChar = input.charAt(i);
 
 			if (currentChar == ' '){
 				encode += codeTable[(int)currentChar - 6];
@@ -88,12 +92,12 @@ class huffmanTree{
 		//reset encode for saftey
 		encode = null;
 		
-		for(int i = 0; i < decode.length - 1; i++){
+		for(int i = 0; i < decode.length() - 1; i++){
 			
 			Node currentNode = huffTree.getRoot();
 			
-			while(currentNode.data_char != "+"){
-				if (decode.substring(i,i+1) == "1"{
+			while(currentNode.data_char != '+'){
+				if (decode.substring(i,i+1) == "1"){
 					currentNode = currentNode.rightChild;
 				} else {
 					currentNode = currentNode.leftChild;
@@ -109,11 +113,11 @@ class huffmanTree{
 		char currentChar;
 		int index; 
 		for(int i = 0; i < input.length(); i++){
-			currentChar = input.charAt(i);d
-			if(currentChar.equals(' ')){
+			currentChar = input.charAt(i);
+			if(currentChar == ' '){
 				index = (int)currentChar - 6; //subtract 6 to get space (32) to an index of 26
 			}
-			else if(currentChar.equals('\n')){
+			else if(currentChar == '\n'){
 				index = (int)currentChar + 17; //add 17 to get lf (10) to an index of 27
 			}
 			else{
@@ -141,9 +145,9 @@ class huffmanTree{
 			Tree secondItem = queue.remove();
 			
 			Tree newTree = new Tree();
-			newTree.insert(firstItem.getRoot().data_freq + secondItem.getRoot().data_freq, "+");
-			newTree.getRoot().leftChild = firstItem;
-			newTree.getRoot().rightChild = secondItem;
+			newTree.insert(firstItem.getRoot().data_freq + secondItem.getRoot().data_freq, '+');
+			newTree.getRoot().leftChild = firstItem.getRoot();
+			newTree.getRoot().rightChild = secondItem.getRoot();
 			
 			queue.insert(newTree);
 		}

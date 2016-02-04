@@ -46,6 +46,10 @@ class Tree
 	public Node getRoot(){
 		return root;
 	}
+
+	public int getFrequency(){
+		return root.data_freq;
+	}
 	
 	public void insert(int id, char dd)
 	{
