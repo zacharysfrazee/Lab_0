@@ -133,7 +133,23 @@ class huffmanTree{
 		for(int i = 0; i < 28; i++){
 			if(freqTable[i] != 0){
 					Tree character = new Tree();
-					character.insert(freqTable[i], i);
+					char currentChar;
+
+					if(i < 26){ 
+						//if index is < 26, we are in the normal characters 
+						//of the freqTable. Thus we add 65 as the ascii offset.
+						currentChar = (char)(i + 65);
+					}
+					else if(i == 26){
+						//i == 26 implies we have a space, so we add 6 to get the correct ascii
+						currentChar = (char)(i + 6);
+					}
+					else{
+						//i == 27 implies we have a linefeed, so we subtract 17
+						currentChar = (char)(i - 27);
+					}
+
+					character.insert(freqTable[i], currentChar);
 					queue.insert(character);
 			}
 		}
