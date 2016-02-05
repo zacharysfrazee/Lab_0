@@ -46,6 +46,10 @@ class huffmanTree{
 
 	//Public Method
 
+	public void displayTree(){
+		huffTree.displayTree();
+	}
+
 	private void makeCodeTable(Node n, String code){
 		if (n.data_char == '+'){
 			makeCodeTable(n.leftChild, code+"0");

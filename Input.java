@@ -1,9 +1,14 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+
 ////////////////////////////////////////////////////////////////
 class HuffmanApp
 {
 	public static void main(String[] args) throws IOException
 	{
-		Huffman huff = null;
+		huffmanTree huff = null;
 		int value;
 		String str;
 
@@ -18,7 +23,7 @@ class HuffmanApp
 				System.out.println(
 						"Enter text lines, terminate with $");
 				str = getText();
-				huff = new Huffman(str);
+				huff = new huffmanTree(str);
 				break;
 			case 's':
 				huff.displayTree();
