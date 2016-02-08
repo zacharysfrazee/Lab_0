@@ -18,7 +18,6 @@ class PriorityQ
 	//-------------------------------------------------------------
 	public void insert(Tree item) // insert item
 	{
-		System.out.println(item);
 		int j;
 		if(nItems==0) // if no items,
 			queArray[nItems++] = item; // insert at 0
