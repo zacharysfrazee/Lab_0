@@ -56,7 +56,10 @@ class huffmanTree{
 			makeCodeTable(n.leftChild, code+"0");
 			makeCodeTable(n.rightChild, code+"1");
 		}
-		
+		//I'm not convinced we need the n.data_char != 0. we we're getting a 0 in
+		//ascii, which is a null, so I added this check. However, the ascii null
+		//might be a symptom of something else. We aren't successfully getting
+		//any linefeed characters into the huffman tree, it seems.
 		else if (n.data_char != 0){ // hit a leaf node
 			if(n.data_char == ' '){ //char is space
 				System.out.println("char is a space");
