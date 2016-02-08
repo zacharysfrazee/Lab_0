@@ -9,12 +9,12 @@ class huffmanTree{
 	//Instance Variables
 	String input;
 	int maxSize = 28;
-	int[] freqTable;
-	PriorityQ queue; 
+	int[] freqTable = new int[maxSize];;
+	PriorityQ queue =  new PriorityQ(maxSize); 
 	Tree huffTree;
 	String encode = "";
 	String decode = "";
-	String[] codeTable;
+	String[] codeTable = new String[maxSize];
 
 
 
@@ -23,8 +23,6 @@ class huffmanTree{
 	
 	//Constructor
 	public huffmanTree(String input){
-		freqTable = new int[maxSize];
-		codeTable = new String[maxSize];
 		this.input = input.toUpperCase();
 
 		//initialize the frequency table

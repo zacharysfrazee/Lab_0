@@ -5,7 +5,7 @@
 class PriorityQ
 {
 	// array in sorted order, from max at 0 to min at size-1
-	private int maxSize = 28;
+	private int maxSize;
 	private Tree[] queArray;
 	private int nItems;
 	//-------------------------------------------------------------
