@@ -1,20 +1,17 @@
-// tree.java
-// demonstrates binary tree
-// to run this program: C>java TreeApp
 
 import java.io.*;
 import java.util.*; // for Stack class
 
 class huffmanTree{
 	//Instance Variables
-	String input;
+	String input, inputUppercase;
 	int maxSize = 28;
-	int[] freqTable = new int[maxSize];;
-	PriorityQ queue =  new PriorityQ(maxSize); 
+	int[] freqTable;
+	PriorityQ queue; 
 	Tree huffTree;
 	String encode = "";
 	String decode = "";
-	String[] codeTable = new String[maxSize];
+	String[] codeTable;
 
 
 
@@ -23,7 +20,11 @@ class huffmanTree{
 	
 	//Constructor
 	public huffmanTree(String input){
+		freqTable = new int[maxSize];
+		codeTable = new String[maxSize];
 		this.input = input.toUpperCase();
+                
+                queue = new PriorityQ(maxSize);
 
 		//initialize the frequency table
 		for(int i = 0; i < maxSize; i++){
@@ -49,24 +50,18 @@ class huffmanTree{
 	}
 
 	private void makeCodeTable(Node n, String code){
-
-		System.out.println(n.data_char + " " + Integer.toString((int)n.data_char));
-
 		if (n.data_char == '+'){
 			makeCodeTable(n.leftChild, code+"0");
 			makeCodeTable(n.rightChild, code+"1");
 		}
 		else{ // hit a leaf node
 			if(n.data_char == ' '){ //char is space
-				System.out.println("char is a space");
 				codeTable[(int)n.data_char - 6] = code;
 			}
 			else if(n.data_char == '\n'){ //char is linefeed
-				System.out.println("char is a linefeed");
 				codeTable[(int)n.data_char + 17] = code;
 			}
 			else{ //char is a normal letter
-				System.out.println("char is a normal letter");
 				codeTable[(int)n.data_char - 65] = code;		
 			}
 			
@@ -80,51 +75,56 @@ class huffmanTree{
 	//current character and adds the code to encode string
 	public void code(){
 		char currentChar;
-		if (encode == ""){
+		for (int i = 0; i < input.length(); i++){
+			currentChar = input.charAt(i);
 
-
-			for (int i = 0; i < input.length(); i++){
-				currentChar = input.charAt(i);
-				System.out.println(currentChar);
-
-				if (currentChar == ' '){
-					encode += codeTable[(int)currentChar - 6];
-					System.out.println(codeTable[(int)currentChar - 6] + " " + Integer.toString((int)currentChar - 6));
-				} 
-				else if (currentChar == '\n'){
-					encode += codeTable[(int)currentChar + 17];
-					System.out.println(codeTable[(int)currentChar + 17] + " " + Integer.toString((int)currentChar + 17));
-				}
-				else{
-					encode += codeTable[(int)currentChar - 65];
-					System.out.println(codeTable[(int)currentChar - 65] + " " + Integer.toString((int)currentChar - 65));
-				}
+			if (currentChar == ' '){
+				encode += codeTable[(int)currentChar - 6];
+			} 
+			else if (currentChar == '\n'){
+				encode += codeTable[(int)currentChar + 17];
+			}
+			else{
+				encode += codeTable[(int)currentChar - 65];
 			}
 		}
-
-		System.out.println(encode);
 		
+                //Print out the code table
+                for(int i = 0; i < 28; i++){
+                    if(codeTable[i] != null)
+                        System.out.println((char)(i + 65) + " " + codeTable[i]);
+                }
+                
+                //Print the coded message
+                System.out.println("Coded msg: ");
+                System.out.println(encode);
 	}
 	
 	public void decode(){
-		if (decode == ""){
-			for(int i = 0; i < decode.length() - 1; i++){
-				
-				Node currentNode = huffTree.getRoot();
-				
-				while(currentNode.data_char != '+'){
-					if (decode.substring(i,i+1) == "1"){
-						currentNode = currentNode.rightChild;
-					} else {
-						currentNode = currentNode.leftChild;
-					}
-				}
-				
-				decode += currentNode.data_char;
-			}
+		//reset encode for saftey
+		decode = "";
+		Node currentNode = huffTree.getRoot();
+                
+		for(int i = 0; i < encode.length(); i++){
+                        String value = encode.substring(i,i+1);
+                        
+                        //Traverse the tree
+                        if (value.equals("1")){
+                                currentNode = currentNode.rightChild;
+                        } else {
+                                currentNode = currentNode.leftChild;
+                        }
+                        
+                        //Check if we are at a leaf node
+                        if(currentNode.data_char != '+'){
+                            decode += currentNode.data_char;
+                            currentNode = huffTree.getRoot();
+                        }
 		}
-
-		System.out.println(decode);
+                
+                //Print decoded message
+                System.out.println("Decoded msg: ");
+                System.out.println(decode);
 	}
 	
 	//Private Methods
@@ -140,37 +140,41 @@ class huffmanTree{
 				index = (int)currentChar + 17; //add 17 to get lf (10) to an index of 27
 			}
 			else{
-
-			index = (int)currentChar - 65; //ascii valuve for A is 65. convert char to ascii then 
-										   //subtract the value of A to get an index for the frequency table
+                            index = (int)currentChar - 65; //ascii valuve for A is 65. convert char to ascii then 
+                                                            //subtract the value of A to get an index for the frequency table
 			}
-			freqTable[index]++; //increase the frequency count of the current character
+                        freqTable[index]++; //increase the frequency count of the current character
+                        System.out.print((char)(index + 65));  //print the character
 		}
+                
+                //Print out Freq Table
+                System.out.print("\n"); //new line
+                
+                //print characters in freq table
+                for(int i = 0; i < 28; i++){
+                    System.out.print("" + (char)(i + 65) + " ");
+                }
+                
+                System.out.print("\n"); //new line
+                
+                //print frequiencies in freq table
+                for(int i = 0; i < 28; i++){
+                    System.out.print(freqTable[i] + " ");
+                }
+                
+                System.out.print("\n\n\n"); //new line
 	}
 
 	private void queueTree(){
-		for(int i = 0; i < maxSize; i++){
+		for(int i = 0; i < 28; i++){
 			if(freqTable[i] != 0){
-					Tree character = new Tree();
-					char currentChar;
+                                Tree character = new Tree();
+                                char currentChar;
 
-					if(i < 26){ 
-						//if index is < 26, we are in the normal characters 
-						//of the freqTable. Thus we add 65 as the ascii offset.
-						currentChar = (char)(i + 65);
-						//System.out.println(currentChar);
-					}
-					else if(i == 26){
-						//i == 26 implies we have a space, so we add 6 to get the correct ascii
-						currentChar = (char)(i + 6);
-					}
-					else{
-						//i == 27 implies we have a linefeed, so we subtract 17
-						currentChar = (char)(i - 17); 
-					}
+                                currentChar = (char)(i + 65);
 
-					character.insert(freqTable[i], currentChar);
-					queue.insert(character);
+                                character.insert(freqTable[i], currentChar);
+                                queue.insert(character);
 			}
 		}
 	}
@@ -181,10 +185,11 @@ class huffmanTree{
 			Tree secondItem = queue.remove();
 			
 			Tree newTree = new Tree();
-			newTree.insert(firstItem.getRoot().data_freq + secondItem.getRoot().data_freq, '+');
-			newTree.getRoot().leftChild = firstItem.getRoot();
-			newTree.getRoot().rightChild = secondItem.getRoot();
-			
+			newTree.insert(firstItem.getRoot().data_freq + secondItem.getRoot().data_freq, '+');         
+
+                        newTree.getRoot().leftChild = firstItem.getRoot();
+                        newTree.getRoot().rightChild = secondItem.getRoot();		
+                        
 			queue.insert(newTree);
 		}
 

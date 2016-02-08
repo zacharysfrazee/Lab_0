@@ -242,6 +242,7 @@ class Tree
 				Node temp = (Node)globalStack.pop();
 				if(temp != null)
 				{
+                                        System.out.print(temp.data_char);
 					System.out.print(temp.data_freq);
 					localStack.push(temp.leftChild);
 					localStack.push(temp.rightChild);
