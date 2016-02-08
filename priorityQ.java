@@ -5,7 +5,7 @@
 class PriorityQ
 {
 	// array in sorted order, from max at 0 to min at size-1
-	private int maxSize;
+	private int maxSize = 28;
 	private Tree[] queArray;
 	private int nItems;
 	//-------------------------------------------------------------
@@ -18,6 +18,7 @@ class PriorityQ
 	//-------------------------------------------------------------
 	public void insert(Tree item) // insert item
 	{
+		System.out.println(item);
 		int j;
 		if(nItems==0) // if no items,
 			queArray[nItems++] = item; // insert at 0

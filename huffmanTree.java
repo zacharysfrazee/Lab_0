@@ -1,10 +1,13 @@
+// tree.java
+// demonstrates binary tree
+// to run this program: C>java TreeApp
 
 import java.io.*;
 import java.util.*; // for Stack class
 
 class huffmanTree{
 	//Instance Variables
-	String input, inputUppercase;
+	String input;
 	int maxSize = 28;
 	int[] freqTable;
 	PriorityQ queue; 
@@ -151,6 +154,7 @@ class huffmanTree{
 					}
 
 					character.insert(freqTable[i], currentChar);
+					System.out.println(character);
 					queue.insert(character);
 			}
 		}
