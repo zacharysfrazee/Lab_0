@@ -1,3 +1,9 @@
+//------------------------------------------------------------------------------------------------------------
+// huffmanTree.java
+// CSCI 232 S16
+// Zachary Frazee, Trevor Vannoy 
+//------------------------------------------------------------------------------------------------------------
+
 
 import java.io.*;
 import java.util.*; // for Stack class
@@ -41,6 +47,7 @@ class huffmanTree{
 
 
 	public void displayTree(){
+		//Display the tree using the tree classes print method
 		huffTree.displayTree();
 	}
 
@@ -108,15 +115,15 @@ class huffmanTree{
 
 
 	public void decode(){
-		//reset encode for saftey
+		//reset decode for safety
 		decode = "";
+		
+		//Start at the root of the tree
 		Node currentNode = huffTree.getRoot();
                 
 		for(int i = 0; i < encode.length(); i++){
-            String value = encode.substring(i,i+1);
-            
             //Traverse the tree
-            if (value.equals("1")){
+            if (encode.substring(i,i+1).equals("1")){
                     currentNode = currentNode.rightChild;
             } else {
                     currentNode = currentNode.leftChild;
@@ -124,6 +131,7 @@ class huffmanTree{
             
             //Check if we are at a leaf node
             if(currentNode.data_char != '+'){
+				//If so append the character to the decoded message and return to the root of the tree
                 decode += currentNode.data_char;
                 currentNode = huffTree.getRoot();
             }
@@ -178,12 +186,13 @@ class huffmanTree{
             System.out.print(freqTable[i] + " ");
         }
                 
-        System.out.print("\n\n\n"); //new line
+        System.out.println(); //new line
 	}
 
 	private void queueTree(){
 		for(int i = 0; i < 28; i++){
 			if(freqTable[i] != 0){
+				//create a new tree for the character
                 Tree character = new Tree();
                 char currentChar;
 
@@ -201,6 +210,7 @@ class huffmanTree{
 					currentChar = (char)(i - 17); 
 				}
 
+				//Insert the new tree into the queue
                 character.insert(freqTable[i], currentChar);
                 queue.insert(character);
 			}
@@ -209,15 +219,19 @@ class huffmanTree{
 	
 	private void makeHuffmanTree(){
 		while(queue.get_nItems() > 1){
+			//Remove the first two items from the queue
 			Tree firstItem = queue.remove();
 			Tree secondItem = queue.remove();
 			
+			//Create a new tree with the root node having a frequency of the sum of the two removed trees
 			Tree newTree = new Tree();
 			newTree.insert(firstItem.getRoot().data_freq + secondItem.getRoot().data_freq, '+');         
 
+			//ad the two removed trees as children to the new tree
             newTree.getRoot().leftChild = firstItem.getRoot();
             newTree.getRoot().rightChild = secondItem.getRoot();		
-                        
+            
+			//Insert the new tree into the queue
 			queue.insert(newTree);
 		}
 
