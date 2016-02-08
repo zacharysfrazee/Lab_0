@@ -92,7 +92,15 @@ class huffmanTree{
                 //Print out the code table
                 for(int i = 0; i < 28; i++){
                     if(codeTable[i] != null)
-                        System.out.println((char)(i + 65) + " " + codeTable[i]);
+                    	if (i < 26){
+                        	System.out.println((char)(i + 65) + " " + codeTable[i]);
+                        }
+                        else if(i == 26){ //we reached the space char
+                        	System.out.println("space" + " " + codeTable[i]);
+                        }
+                        else{ // i == 27 implies we reached the linefeed 
+                        	System.out.println("LF" + " " + codeTable[i]);
+                        }
                 }
                 
                 //Print the coded message
@@ -140,41 +148,61 @@ class huffmanTree{
 				index = (int)currentChar + 17; //add 17 to get lf (10) to an index of 27
 			}
 			else{
-                            index = (int)currentChar - 65; //ascii valuve for A is 65. convert char to ascii then 
-                                                            //subtract the value of A to get an index for the frequency table
+                index = (int)currentChar - 65; //ascii valuve for A is 65. convert char to ascii then 
+                                                //subtract the value of A to get an index for the frequency table
 			}
-                        freqTable[index]++; //increase the frequency count of the current character
-                        System.out.print((char)(index + 65));  //print the character
+            freqTable[index]++; //increase the frequency count of the current character
+            System.out.print(currentChar);  //print the character
 		}
                 
-                //Print out Freq Table
-                System.out.print("\n"); //new line
+        //Print out Freq Table
+        System.out.print("\n"); //new line
+        
+        //print characters in freq table
+        for(int i = 0; i < 28; i++){
+        	if (i < 26){
+        		System.out.print((char)(i + 65) + " ");
+	        }
+	        else if(i == 26){ //we reached the space char
+	        	System.out.print((char)(i + 6) + " ");
+	        }
+	        else{ // i == 27 implies we reached the linefeed 
+	        	System.out.print("LF" + " ");
+	        }        
+    	}
+        
+        System.out.println(); //new line
+        
+        //print frequiencies in freq table
+        for(int i = 0; i < 28; i++){
+            System.out.print(freqTable[i] + " ");
+        }
                 
-                //print characters in freq table
-                for(int i = 0; i < 28; i++){
-                    System.out.print("" + (char)(i + 65) + " ");
-                }
-                
-                System.out.print("\n"); //new line
-                
-                //print frequiencies in freq table
-                for(int i = 0; i < 28; i++){
-                    System.out.print(freqTable[i] + " ");
-                }
-                
-                System.out.print("\n\n\n"); //new line
+        System.out.print("\n\n\n"); //new line
 	}
 
 	private void queueTree(){
 		for(int i = 0; i < 28; i++){
 			if(freqTable[i] != 0){
-                                Tree character = new Tree();
-                                char currentChar;
+                Tree character = new Tree();
+                char currentChar;
 
-                                currentChar = (char)(i + 65);
+                if(i < 26){ 
+					//if index is < 26, we are in the normal characters 
+					//of the freqTable. Thus we add 65 as the ascii offset.
+					currentChar = (char)(i + 65);
+				}
+				else if(i == 26){
+					//i == 26 implies we have a space, so we add 6 to get the correct ascii
+					currentChar = (char)(i + 6);
+				}
+				else{
+					//i == 27 implies we have a linefeed, so we subtract 17
+					currentChar = (char)(i - 17); 
+				}
 
-                                character.insert(freqTable[i], currentChar);
-                                queue.insert(character);
+                character.insert(freqTable[i], currentChar);
+                queue.insert(character);
 			}
 		}
 	}
