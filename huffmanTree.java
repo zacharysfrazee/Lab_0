@@ -31,19 +31,19 @@ class huffmanTree{
 		queueTree();
 		makeHuffmanTree();
 		makeCodeTable(huffTree.getRoot(), "");
-
-
 		
 	}
 	
+
+
+
 	//Methods
 
-
-	//Public Method
 
 	public void displayTree(){
 		huffTree.displayTree();
 	}
+
 
 	private void makeCodeTable(Node n, String code){
 		if (n.data_char == '+'){
@@ -63,8 +63,6 @@ class huffmanTree{
 			
 		} 
 	}
-
-
 
 	//code goes through the input string character by character,
 	//then finds the code in the code table corresponding to the
@@ -107,34 +105,37 @@ class huffmanTree{
         System.out.println(encode);
 	}
 	
+
+
 	public void decode(){
 		//reset encode for saftey
 		decode = "";
 		Node currentNode = huffTree.getRoot();
                 
 		for(int i = 0; i < encode.length(); i++){
-                        String value = encode.substring(i,i+1);
-                        
-                        //Traverse the tree
-                        if (value.equals("1")){
-                                currentNode = currentNode.rightChild;
-                        } else {
-                                currentNode = currentNode.leftChild;
-                        }
-                        
-                        //Check if we are at a leaf node
-                        if(currentNode.data_char != '+'){
-                            decode += currentNode.data_char;
-                            currentNode = huffTree.getRoot();
-                        }
+            String value = encode.substring(i,i+1);
+            
+            //Traverse the tree
+            if (value.equals("1")){
+                    currentNode = currentNode.rightChild;
+            } else {
+                    currentNode = currentNode.leftChild;
+            }
+            
+            //Check if we are at a leaf node
+            if(currentNode.data_char != '+'){
+                decode += currentNode.data_char;
+                currentNode = huffTree.getRoot();
+            }
 		}
                 
-                //Print decoded message
-                System.out.println("Decoded msg: ");
-                System.out.println(decode);
+	    //Print decoded message
+	    System.out.println("Decoded msg: ");
+	    System.out.println(decode);
 	}
 	
-	//Private Methods
+
+
 	private void makeFreqTable(){
 		char currentChar;
 		int index; 
@@ -214,13 +215,14 @@ class huffmanTree{
 			Tree newTree = new Tree();
 			newTree.insert(firstItem.getRoot().data_freq + secondItem.getRoot().data_freq, '+');         
 
-                        newTree.getRoot().leftChild = firstItem.getRoot();
-                        newTree.getRoot().rightChild = secondItem.getRoot();		
+            newTree.getRoot().leftChild = firstItem.getRoot();
+            newTree.getRoot().rightChild = secondItem.getRoot();		
                         
 			queue.insert(newTree);
 		}
 
 		huffTree = queue.remove();  //now that there is only one tree left in the queue,
+									//make it the huffman tree
 	}
 	
 }
