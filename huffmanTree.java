@@ -12,8 +12,8 @@ class huffmanTree{
 	int[] freqTable = new int[maxSize];;
 	PriorityQ queue =  new PriorityQ(maxSize); 
 	Tree huffTree;
-	String encode = null;
-	String decode = null;
+	String encode = "";
+	String decode = "";
 	String[] codeTable = new String[maxSize];
 
 
@@ -56,11 +56,7 @@ class huffmanTree{
 			makeCodeTable(n.leftChild, code+"0");
 			makeCodeTable(n.rightChild, code+"1");
 		}
-		//I'm not convinced we need the n.data_char != 0. we we're getting a 0 in
-		//ascii, which is a null, so I added this check. However, the ascii null
-		//might be a symptom of something else. We aren't successfully getting
-		//any linefeed characters into the huffman tree, it seems.
-		else if (n.data_char != 0){ // hit a leaf node
+		else{ // hit a leaf node
 			if(n.data_char == ' '){ //char is space
 				System.out.println("char is a space");
 				codeTable[(int)n.data_char - 6] = code;
@@ -84,7 +80,7 @@ class huffmanTree{
 	//current character and adds the code to encode string
 	public void code(){
 		char currentChar;
-		if (encode != null){
+		if (encode == ""){
 
 
 			for (int i = 0; i < input.length(); i++){
@@ -111,7 +107,7 @@ class huffmanTree{
 	}
 	
 	public void decode(){
-		if (decode != null){
+		if (decode == ""){
 			for(int i = 0; i < decode.length() - 1; i++){
 				
 				Node currentNode = huffTree.getRoot();
@@ -167,14 +163,10 @@ class huffmanTree{
 					else if(i == 26){
 						//i == 26 implies we have a space, so we add 6 to get the correct ascii
 						currentChar = (char)(i + 6);
-						System.out.print("made it to index 26 ");
-						System.out.println(currentChar);
 					}
 					else{
 						//i == 27 implies we have a linefeed, so we subtract 17
-						currentChar = (char)(i - 27);
-						System.out.print("made it to index 27 ");
-						System.out.println(currentChar);
+						currentChar = (char)(i - 17); 
 					}
 
 					character.insert(freqTable[i], currentChar);
