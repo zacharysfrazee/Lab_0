@@ -4,14 +4,14 @@ import java.util.*; // for Stack class
 
 class huffmanTree{
 	//Instance Variables
-	String input, inputUppercase;
+	String input;
 	int maxSize = 28;
-	int[] freqTable;
-	PriorityQ queue; 
+	int[] freqTable = new int[maxSize];
+	PriorityQ queue = new PriorityQ(maxSize); 
 	Tree huffTree;
 	String encode = "";
 	String decode = "";
-	String[] codeTable;
+	String[] codeTable = new String[maxSize];;
 
 
 
@@ -19,12 +19,8 @@ class huffmanTree{
 	
 	
 	//Constructor
-	public huffmanTree(String input){
-		freqTable = new int[maxSize];
-		codeTable = new String[maxSize];
+	public huffmanTree(String input){	 
 		this.input = input.toUpperCase();
-                
-                queue = new PriorityQ(maxSize);
 
 		//initialize the frequency table
 		for(int i = 0; i < maxSize; i++){
@@ -75,37 +71,40 @@ class huffmanTree{
 	//current character and adds the code to encode string
 	public void code(){
 		char currentChar;
-		for (int i = 0; i < input.length(); i++){
-			currentChar = input.charAt(i);
+		if (encode == ""){ //ensure we don't append the encoded message
+						   //onto an already encoded message
+			for (int i = 0; i < input.length(); i++){
+				currentChar = input.charAt(i);
 
-			if (currentChar == ' '){
-				encode += codeTable[(int)currentChar - 6];
-			} 
-			else if (currentChar == '\n'){
-				encode += codeTable[(int)currentChar + 17];
-			}
-			else{
-				encode += codeTable[(int)currentChar - 65];
+				if (currentChar == ' '){
+					encode += codeTable[(int)currentChar - 6];
+				} 
+				else if (currentChar == '\n'){
+					encode += codeTable[(int)currentChar + 17];
+				}
+				else{
+					encode += codeTable[(int)currentChar - 65];
+				}
 			}
 		}
 		
-                //Print out the code table
-                for(int i = 0; i < 28; i++){
-                    if(codeTable[i] != null)
-                    	if (i < 26){
-                        	System.out.println((char)(i + 65) + " " + codeTable[i]);
-                        }
-                        else if(i == 26){ //we reached the space char
-                        	System.out.println("space" + " " + codeTable[i]);
-                        }
-                        else{ // i == 27 implies we reached the linefeed 
-                        	System.out.println("LF" + " " + codeTable[i]);
-                        }
+        //Print out the code table
+        for(int i = 0; i < 28; i++){
+            if(codeTable[i] != null)
+            	if (i < 26){
+                	System.out.println((char)(i + 65) + " " + codeTable[i]);
                 }
-                
-                //Print the coded message
-                System.out.println("Coded msg: ");
-                System.out.println(encode);
+                else if(i == 26){ //we reached the space char
+                	System.out.println("space" + " " + codeTable[i]);
+                }
+                else{ // i == 27 implies we reached the linefeed 
+                	System.out.println("LF" + " " + codeTable[i]);
+                }
+        }
+        
+        //Print the coded message
+        System.out.println("Coded msg: ");
+        System.out.println(encode);
 	}
 	
 	public void decode(){
